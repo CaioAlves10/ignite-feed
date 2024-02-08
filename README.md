@@ -1,5 +1,5 @@
-<img src=./src/assets/header.svg alt="Logo Ignite Feed" />
 <h1>Ignite Feed</h1>
+<img src=./src/assets/header.svg alt="Logo Ignite Feed" />
 
 ## Índice
 - [Contexto de Negócio](#contexto-de-negócio)
