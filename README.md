@@ -1,6 +1,6 @@
-<div style="display: flex; align-items: center;" >
-  <h1 style="padding-right: 20px;" >Ignite Feed<h1>
-  <img src=./src/assets/ignite-logo.svg width="25px" />
+<div style="display: flex; align-items: flex-start;" >
+  <h1>Ignite Feed</h1>
+  <img src=./src/assets/ignite-logo.svg alt="Logo Ignite Feed" width="30px" style="padding-left: 20px; padding-top: 5px" />
 </div>
 
 ## Índice
