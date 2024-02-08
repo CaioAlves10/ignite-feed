@@ -1,7 +1,5 @@
-<div style="display: flex; align-items: flex-start;" >
-  <h1>Ignite Feed</h1>
-  <img src=./src/assets/ignite-logo.svg alt="Logo Ignite Feed" width="30px" style="padding-left: 20px; padding-top: 5px" />
-</div>
+<img src=./src/assets/header.svg alt="Logo Ignite Feed" />
+<h1>Ignite Feed</h1>
 
 ## Índice
 - [Contexto de Negócio](#contexto-de-negócio)
@@ -12,7 +10,6 @@
 - [Para colaborar no projeto](#para-colaborar-no-projeto)
     - [Padrão de _Branch_](#padrão-de-branch)
     - [Padrão de _Commits_](#padrão-de-commits)
-
 
 ## Contexto de Negócio
 
