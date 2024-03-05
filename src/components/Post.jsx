@@ -1,28 +1,57 @@
-import { Avatar } from "./Avatar"
-import { Comment } from "./Comment"
-import styles from "./Post.module.css"
+import styles from "./Post.module.css";
+import { Avatar } from "./Avatar";
+import { Comment } from "./Comment";
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+import { useState } from "react";
 
-export function Post(props) {
+export function Post({ author, publishedAt, content }) {
+  const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'de' yyyy 'às' k:mm", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
+  const [comments, setComments] = useState([]);
+
+  const [newCommentText, setNewCommentText] = useState('');
+
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    setComments([...comments, newCommentText]);
+    setNewCommentText('');
+  };
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value);
+  };
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://images.unsplash.com/photo-1573547429441-d7ef62e04b63?q=50&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Caio Carvalho</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="30 de Janeiro de 2024 às 19h" dateTime="2024-01-30 19:00:01">Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>{publishedDateRelativeToNow}</time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-        <p>👉 <a href="#">caio.carvalho/doctorcare</a></p>
+        {content.map(line => {
+          if (line.type === 'paragraph') {
+            return <p key={line.content}>{line.content}</p>
+          } else if (line.type === 'link') {
+            return <p key={line.content}><a href="#">{line.content}</a></p>
+          }
+        })}
 
         <div className={styles.tag}>
           <a href="#">#novoprojeto</a>{' '}
@@ -31,11 +60,14 @@ export function Post(props) {
         </div>
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea 
+        <textarea
+          name="comment"
           placeholder="Deixe um comentário"
+          value={newCommentText}
+          onChange={handleNewCommentChange} // monitorar toda vez que houver uma mudança no conteúdo
         />
 
         <footer>
@@ -44,9 +76,9 @@ export function Post(props) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return <Comment key={comment} content={comment} />
+        })}
       </div>
     </article>
   )
